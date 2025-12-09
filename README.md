@@ -119,6 +119,19 @@ Satu_testikeissi/
 └── README.md
 ```
 
+## Important Notes
+
+### Security
+This is a local development/demo application. For production use, consider adding:
+- **Rate limiting** on API endpoints to prevent abuse
+- **Authentication and authorization** to control access
+- **Input sanitization** for additional security
+- **HTTPS** for secure communication
+- **Environment variables** for configuration
+
+### Database
+The SQLite database file (`server/inventory.db`) is excluded from git via `.gitignore`. It will be automatically created and seeded when you first run the backend server.
+
 ## License
 
 ISC
