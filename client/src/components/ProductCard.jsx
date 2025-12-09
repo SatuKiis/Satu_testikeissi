@@ -6,7 +6,7 @@ function ProductCard({ product, onDelete, onUpdateQuantity }) {
 
   const handleQuantitySubmit = (e) => {
     e.preventDefault()
-    onUpdateQuantity(product.id, newQuantity)
+    onUpdateQuantity(product.id, parseInt(newQuantity))
     setIsEditingQuantity(false)
   }
 
@@ -49,7 +49,7 @@ function ProductCard({ product, onDelete, onUpdateQuantity }) {
                   type="number"
                   min="0"
                   value={newQuantity}
-                  onChange={(e) => setNewQuantity(e.target.value)}
+                  onChange={(e) => setNewQuantity(parseInt(e.target.value) || 0)}
                   className="w-20 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   autoFocus
                 />

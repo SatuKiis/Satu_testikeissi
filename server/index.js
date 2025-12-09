@@ -41,9 +41,20 @@ app.post('/api/products', (req, res) => {
       return res.status(400).json({ error: 'Name, quantity, and price are required' });
     }
 
+    const parsedQuantity = parseInt(quantity);
+    const parsedPrice = parseFloat(price);
+
+    if (isNaN(parsedQuantity) || parsedQuantity < 0) {
+      return res.status(400).json({ error: 'Quantity must be a valid non-negative number' });
+    }
+
+    if (isNaN(parsedPrice) || parsedPrice < 0) {
+      return res.status(400).json({ error: 'Price must be a valid non-negative number' });
+    }
+
     const result = db.prepare(
       'INSERT INTO products (name, description, quantity, price, category) VALUES (?, ?, ?, ?, ?)'
-    ).run(name, description || '', quantity, price, category || '');
+    ).run(name, description || '', parsedQuantity, parsedPrice, category || '');
 
     const product = db.prepare('SELECT * FROM products WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json(product);
